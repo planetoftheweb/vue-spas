@@ -1,15 +1,38 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-primary">
-      <div class="navbar-nav mr-auto">
-        <router-link class="nav-item nav-link" to="/">Home</router-link>
-        <router-link class="nav-item nav-link" to="/about">About</router-link>
-      </div>
-    </nav>
-    <router-view class="container" />
+    <Navigation :user="user" />
+    <router-view class="container" :user="user" @login="login" />
   </div>
 </template>
+<script>
+import Navigation from "./components/Navigation.vue";
+import db from "./db.js";
+import Firebase from "firebase";
+import router from "./router";
+
+export default {
+  data: function() {
+    return {
+      user: null
+    };
+  },
+  components: {
+    Navigation
+  },
+  mounted() {
+    Firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.user = user;
+      } else {
+        this.user = {};
+        router.push("/login");
+      }
+    });
+  }
+};
+</script>
 
 <style lang="scss">
+$primary: #0771d4;
 @import "node_modules/bootstrap/scss/bootstrap";
 </style>
