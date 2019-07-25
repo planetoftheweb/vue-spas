@@ -1,8 +1,7 @@
 <template>
   <div class="home">
-    <div class="text-center mt-4">
-      <span class="text-secondary font-weight-bold pl-1">Welcome</span>
-      ,
+    <div v-if="user" class="text-center mt-4">
+      <span class="text-secondary font-weight-bold pl-1">Welcome back {{user.displayName}}</span>,
       <router-link to="/logout" class="font-weight-bold text-primary pl-1">log out</router-link>
     </div>
 
@@ -23,8 +22,8 @@
             <a href="https://firebase.google.com">Firebase</a>.
           </p>
 
-          <router-link class="btn btn-outline-primary mr-2" to="/register">Register</router-link>
-          <router-link class="btn btn-outline-primary mr-2" to="/login">Log In</router-link>
+          <router-link v-if="!user" class="btn btn-outline-primary mr-2" to="/register">Register</router-link>
+          <router-link v-if="!user" class="btn btn-outline-primary mr-2" to="/login">Log In</router-link>
           <router-link v-if="user" class="btn btn-primary" to="/meetings">Meetings</router-link>
         </div>
       </div>

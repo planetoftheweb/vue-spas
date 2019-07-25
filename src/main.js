@@ -1,7 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import firebase from "firebase";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import { firestorePlugin } from 'vuefire'
@@ -20,17 +19,7 @@ Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
 
-  if(!to.meta.protected) {
-      next()
-  } else {
-      firebase.auth().onAuthStateChanged((user) => {
-          if(user) {
-              next()
-          } else {
-              router.push('/login')
-          } 
-      })
-  }
+  if(!to.meta.protected) { next() } 
 })
 
 new Vue({
