@@ -69,7 +69,6 @@
   </div>
 </template>
 <script>
-import db from "../db.js";
 import Firebase from "firebase";
 import router from "../router.js";
 

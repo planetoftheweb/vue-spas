@@ -44,8 +44,7 @@
   </div>
 </template>
 <script>
-import db from "../db.js";
-import Firebase, { functions } from "firebase";
+import Firebase from "firebase";
 export default {
   data: function() {
     return {
@@ -64,7 +63,7 @@ export default {
       Firebase.auth()
         .signInWithEmailAndPassword(info.email, info.password)
         .then(
-          user => {
+          () => {
             this.$router.push("meetings");
           },
           error => {
