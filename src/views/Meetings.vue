@@ -2,7 +2,7 @@
   <div class="container mt-4">
     <div class="row justify-content-center">
       <div class="col-md-8 text-center">
-        <h1 class="font-weight-light" v-if="user">Add a {{user.uid}}</h1>
+        <h1 class="font-weight-light" v-if="user">Add a Meeting</h1>
         <div class="card bg-light">
           <div class="card-body text-center">
             <form class="formgroup">
@@ -71,10 +71,15 @@ export default {
   firestore() {
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        db.collection("users/WGuVFdc8EJhVnSvgKhsVlt9fDzx2/meetings")
+        db.collection("users")
+          .doc(user.uid)
+          .collection("meetings")
           .get()
           .then(snapshot => {
-            console.log(snapshot);
+            snapshot.forEach(doc => {
+              this.meetings.push({ id: doc.id, name: doc.data().name });
+              console.log(doc.id, "=>", doc.data());
+            });
           });
       }
     });
