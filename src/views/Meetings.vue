@@ -53,7 +53,7 @@
                 <button
                   class="btn btn-sm btn-outline-secondary"
                   title="Check In"
-                  @click="$emit('deleteMeeting', item.id)"
+                  @click="$emit(null, item.id)"
                 >
                   <font-awesome-icon icon="link"></font-awesome-icon>
                 </button>
