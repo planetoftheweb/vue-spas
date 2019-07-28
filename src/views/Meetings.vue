@@ -1,8 +1,8 @@
 <template>
   <div class="container mt-4">
     <div class="row justify-content-center">
-      <div class="col-md-8 text-center">
-        <h1 class="font-weight-light" v-if="user">Add a Meeting</h1>
+      <div class="col-12 col-md-9 col-lg-7">
+        <h1 class="font-weight-light text-center" v-if="user">Add a Meeting</h1>
         <div class="card bg-light">
           <div class="card-body text-center">
             <form class="formgroup">
@@ -29,8 +29,9 @@
           </div>
         </div>
       </div>
-
-      <div class="col-11 col-md-6">
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-11 col-md-8 col-lg-6">
         <div class="card border-top-0 rounded-0">
           <div class="card-body py-2">
             <h4 class="card-title m-0 text-center">Your Meetings</h4>
