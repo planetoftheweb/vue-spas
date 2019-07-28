@@ -6,10 +6,10 @@ import {library} from "@fortawesome/fontawesome-svg-core";
 import { firestorePlugin } from 'vuefire'
 
 import {
-  faShoppingCart, faDollarSign
+  faTrash, faLink, faListUl
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faShoppingCart, faDollarSign);
+library.add(faTrash, faLink, faListUl);
 
 Vue.use(firestorePlugin)
 
