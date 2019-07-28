@@ -45,7 +45,6 @@ export default {
       this.meetingName = "";
     },
     deleteMeeting: function(payload) {
-      console.log(payload);
       db.collection("users")
         .doc(this.user.uid)
         .collection("meetings")

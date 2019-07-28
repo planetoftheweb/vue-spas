@@ -37,7 +37,7 @@
             <h4 class="card-title m-0 text-center">Your Meetings</h4>
           </div>
           <div class="list-group list-group-flush">
-            <div class="list-group-item d-flex" v-for="(item) in meetings" :key="item.index">
+            <div class="list-group-item d-flex" v-for="(item) in meetings" :key="item.id">
               <section
                 class="btn-group align-self-center"
                 role="group"
@@ -46,21 +46,21 @@
                 <button
                   class="btn btn-sm btn-outline-secondary"
                   title="Delete Meeting"
-                  :click="handleAdd"
+                  @click="$emit('deleteMeeting', item.id)"
                 >
                   <font-awesome-icon icon="trash"></font-awesome-icon>
                 </button>
                 <button
                   class="btn btn-sm btn-outline-secondary"
                   title="Check In"
-                  :click="handleAdd"
+                  @click="$emit('deleteMeeting', item.id)"
                 >
                   <font-awesome-icon icon="link"></font-awesome-icon>
                 </button>
                 <button
                   class="btn btn-sm btn-outline-secondary"
                   title="Attendees List"
-                  :click="handleAdd"
+                  @click="handleAdd"
                 >
                   <font-awesome-icon icon="list-ul"></font-awesome-icon>
                 </button>
