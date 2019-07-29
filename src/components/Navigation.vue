@@ -3,7 +3,10 @@
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand">Meeting Log</router-link>
       <div class="navbar-nav ml-auto">
-        <router-link v-if="user" class="nav-item nav-link" to="/meetings">meetings</router-link>
+        <router-link v-if="user" class="nav-item nav-link" to="/meetings">
+          meetings
+          <span class="badge badge-pill badge-light">{{meetingsQty}}</span>
+        </router-link>
         <router-link v-if="!user" class="nav-item nav-link" to="/login">log in</router-link>
         <router-link v-if="!user" class="nav-item nav-link" to="/register">register</router-link>
         <button v-if="user" class="nav-item nav-link btn btn-link" @click="$emit('logout')">log out</button>
@@ -14,6 +17,6 @@
 <script>
 export default {
   name: "navigation",
-  props: ["user"]
+  props: ["user", "meetingsQty"]
 };
 </script>

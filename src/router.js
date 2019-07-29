@@ -1,9 +1,10 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
-import Login from "./views/Login.vue";
-import Register from "./views/Register.vue";
-import Meetings from "./views/Meetings.vue";
+import Home from "./views/Home";
+import Login from "./views/Login";
+import Register from "./views/Register";
+import Meetings from "./views/Meetings";
+import CheckIn from "./views/CheckIn";
 
 Vue.use(Router);
 
@@ -28,6 +29,17 @@ export default new Router({
       path: "/meetings",
       name: "Meetings",
       component: Meetings
+    },
+    {
+      path: "/checkin/:userID/:meetingID",
+      name: "Checkin",
+      component: CheckIn
+    }, 
+    { 
+      path: '*',
+      redirect: '/'
     }
+
+
   ]
 });

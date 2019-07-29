@@ -50,13 +50,16 @@
                 >
                   <font-awesome-icon icon="trash"></font-awesome-icon>
                 </button>
-                <button
+
+                <router-link
                   class="btn btn-sm btn-outline-secondary"
                   title="Check In"
                   @click="$emit(null, item.id)"
+                  :to="'/checkin/'+ user.uid + '/' + item.id"
                 >
                   <font-awesome-icon icon="link"></font-awesome-icon>
-                </button>
+                </router-link>
+
                 <button
                   class="btn btn-sm btn-outline-secondary"
                   title="Attendees List"
