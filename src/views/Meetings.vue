@@ -54,19 +54,18 @@
                 <router-link
                   class="btn btn-sm btn-outline-secondary"
                   title="Check In"
-                  @click="$emit(null, item.id)"
                   :to="'/checkin/'+ user.uid + '/' + item.id"
                 >
                   <font-awesome-icon icon="link"></font-awesome-icon>
                 </router-link>
 
-                <button
+                <router-link
                   class="btn btn-sm btn-outline-secondary"
-                  title="Attendees List"
-                  @click="handleAdd"
+                  title="Attendees"
+                  :to="'/attendees/'+ user.uid + '/' + item.id"
                 >
                   <font-awesome-icon icon="list-ul"></font-awesome-icon>
-                </button>
+                </router-link>
               </section>
 
               <section class="pl-3 text-left align-self-center">{{item.name}}</section>

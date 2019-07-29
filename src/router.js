@@ -4,6 +4,7 @@ import Home from "./views/Home";
 import Login from "./views/Login";
 import Register from "./views/Register";
 import Meetings from "./views/Meetings";
+import Attendees from "./views/Attendees";
 import CheckIn from "./views/CheckIn";
 
 Vue.use(Router);
@@ -31,6 +32,11 @@ export default new Router({
       component: Meetings
     },
     {
+      path: "/attendees/:userID/:meetingID",
+      name: "Attendees",
+      component: Attendees
+    }, 
+    {
       path: "/checkin/:userID/:meetingID",
       name: "Checkin",
       component: CheckIn
@@ -39,7 +45,5 @@ export default new Router({
       path: '*',
       redirect: '/'
     }
-
-
   ]
 });
