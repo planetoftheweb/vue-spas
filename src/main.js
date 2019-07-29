@@ -7,9 +7,9 @@ import { firestorePlugin } from 'vuefire'
 
 import {
   faTrash, faLink, faListUl, faRandom, faUndo, faStar, faEnvelope
-} from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/free-solid-svg-icons"; 
 
-library.add(faTrash, faLink, faListUl, faRandom, faUndo, faStar, faEnvelope);
+library.add(faTrash, faLink, faListUl, faRandom, faUndo, faStar, faEnvelope); 
 
 Vue.use(firestorePlugin)
 

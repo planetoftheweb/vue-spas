@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div v-if="user" class="text-center mt-4">
-      <span class="text-secondary font-weight-bold pl-1">Welcome back {{user.displayName}}</span>,
+      <span class="text-secondary font-weight-bold pl-1">Welcome back {{ user.displayName }}</span>,
       <router-link to="/logout" class="font-weight-bold text-primary pl-1">log out</router-link>
     </div>
 
@@ -10,11 +10,10 @@
         <div class="col-10 col-md-10 col-lg-8 col-xl-7">
           <h4 class="display-4 text-primary mt-3 mb-2">Meeting Log</h4>
           <p class="lead">
-            This simple app creates meetings, allows people to check
-            in, and picks random users to award giveaways. It's a
-            good example of a Single Page Application which includes
-            connection to a database and routing. It's a practical
-            way to learn
+            This simple app creates meetings, allows people to check in, and
+            picks random users to award giveaways. It's a good example of a
+            Single Page Application which includes connection to a database and
+            routing. It's a practical way to learn
             <a
               href="https://vuejs.org/"
             >Vue.js</a>

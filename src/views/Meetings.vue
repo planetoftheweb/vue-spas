@@ -2,7 +2,10 @@
   <div class="container mt-4">
     <div class="row justify-content-center">
       <div class="col-12 col-md-9 col-lg-7">
-        <h1 class="font-weight-light text-center" v-if="user">Add a Meeting</h1>
+        <h1
+          class="font-weight-light text-center"
+          v-if="user"
+        >Add a Meeting</h1>
         <div class="card bg-light">
           <div class="card-body text-center">
             <form class="formgroup">
@@ -22,7 +25,9 @@
                     class="btn btn-sm btn-info"
                     id="buttonAdd"
                     @click.prevent="handleAdd"
-                  >+</button>
+                  >
+                    +
+                  </button>
                 </div>
               </div>
             </form>
@@ -37,7 +42,11 @@
             <h4 class="card-title m-0 text-center">Your Meetings</h4>
           </div>
           <div class="list-group list-group-flush">
-            <div class="list-group-item d-flex" v-for="(item) in meetings" :key="item.id">
+            <div
+              class="list-group-item d-flex"
+              v-for="item in meetings"
+              :key="item.id"
+            >
               <section
                 class="btn-group align-self-center"
                 role="group"
@@ -54,7 +63,7 @@
                 <router-link
                   class="btn btn-sm btn-outline-secondary"
                   title="Check In"
-                  :to="'/checkin/'+ user.uid + '/' + item.id"
+                  :to="'/checkin/' + user.uid + '/' + item.id"
                 >
                   <font-awesome-icon icon="link"></font-awesome-icon>
                 </router-link>
@@ -62,13 +71,15 @@
                 <router-link
                   class="btn btn-sm btn-outline-secondary"
                   title="Attendees"
-                  :to="'/attendees/'+ user.uid + '/' + item.id"
+                  :to="'/attendees/' + user.uid + '/' + item.id"
                 >
                   <font-awesome-icon icon="list-ul"></font-awesome-icon>
                 </router-link>
               </section>
 
-              <section class="pl-3 text-left align-self-center">{{item.name}}</section>
+              <section class="pl-3 text-left align-self-center">
+                {{ item.name }}
+              </section>
             </div>
           </div>
         </div>

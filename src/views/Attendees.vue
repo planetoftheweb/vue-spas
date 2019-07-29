@@ -1,6 +1,9 @@
 <template>
   <div class="container mt-4">
-    <div class="row justify-content-center" v-if="user && user.uid == userID">
+    <div
+      class="row justify-content-center"
+      v-if="user !== null && user.uid == userID"
+    >
       <div class="col-md-8">
         <h1 class="font-weight-light text-center">Attendees</h1>
 
@@ -43,18 +46,26 @@
         :key="item.id"
       >
         <div class="card">
-          <div class="card-body px-3 py-2 d-flex align-items-center justify-content-center">
-            <div class="btn-group pr-2" v-if="user && (user.uid == userID)">
+          <div
+            class="card-body px-3 py-2 d-flex align-items-center justify-content-center"
+          >
+            <div
+              class="btn-group pr-2"
+              v-if="user !== null && user.uid == userID"
+            >
               <button
                 class="btn btn-sm"
-                :class="[item.star ? 'text-danger' : '', 'btn-outline-secondary']"
+                :class="[
+                  item.star ? 'text-danger' : '',
+                  'btn-outline-secondary'
+                ]"
                 title="Give user a star"
                 @click="toggleStar(item.id)"
               >
                 <font-awesome-icon icon="star"></font-awesome-icon>
               </button>
               <a
-                :href="'mailto:'+item.eMail"
+                :href="'mailto:' + item.eMail"
                 class="btn btn-sm btn-outline-secondary"
                 :title="item.eMail"
               >
@@ -69,7 +80,7 @@
               </button>
             </div>
 
-            <div>{{item.displayName}}</div>
+            <div>{{ item.displayName }}</div>
           </div>
         </div>
       </div>

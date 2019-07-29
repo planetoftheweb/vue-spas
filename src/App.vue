@@ -1,6 +1,10 @@
 <template>
   <div id="app">
-    <Navigation :user="user" @logout="logout" :meetingsQty="meetings.length" />
+    <Navigation
+      :user="user"
+      @logout="logout"
+      :meetingsQty="meetings.length"
+    />
     <router-view
       class="container"
       :user="user"
