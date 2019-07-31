@@ -6,8 +6,6 @@
 </template>
 <script>
 import Navigation from "@/components/Navigation.vue";
-import Firebase from "firebase";
-import db from "./db.js";
 
 export default {
   components: {
