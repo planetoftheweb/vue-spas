@@ -92,7 +92,13 @@ export default {
           .createUserWithEmailAndPassword(info.email, info.password)
           .then(
             userCredentials => {
-              this.$router.replace("meetings");
+              return userCredentials.user
+                .updateProfile({
+                  displayName: info.displayName
+                })
+                .then(() => {
+                  this.$router.replace("meetings");
+                });
             },
             error => {
               this.error = error.message;
