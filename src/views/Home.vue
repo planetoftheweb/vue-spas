@@ -6,7 +6,7 @@
         class="text-center"
       >
         Welcome back
-        <span class="font-weight-bold text-info">{{user}}</span>, <a
+        <span class="font-weight-bold text-info">{{user.displayName}}</span>, <a
           href="#"
           role="button"
           class="text-primary"
