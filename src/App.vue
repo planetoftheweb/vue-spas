@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <Navigation />
+    <Navigation
+      :user="user"
+      @logout="logout"
+    />
     <router-view
       class="container"
       :user="user"
