@@ -1,7 +1,13 @@
 <template>
   <div id="app">
-    <Navigation />
-    <router-view class="container" :user="user" />
+    <Navigation
+      :user="user"
+      @logout="logout"
+    />
+    <router-view
+      class="container"
+      :user="user"
+    />
   </div>
 </template>
 
@@ -26,10 +32,19 @@ export default {
   },
   components: {
     Navigation
+  },
+  methods: {
+    logout: function() {
+      Firebase.auth()
+        .signOut()
+        .then(() => {
+          this.user = null;
+          this.$router.push("login");
+        });
+    }
   }
 };
 </script>
-
 
 <style lang="scss">
 $primary: #05b2dd;
