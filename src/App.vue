@@ -8,6 +8,7 @@
       class="container"
       :user="user"
       @logout="logout"
+      @addMeeting="addMeeting"
     />
   </div>
 </template>
@@ -32,12 +33,21 @@ export default {
           this.user = null;
           this.$router.push("login");
         });
+    },
+    addMeeting: function(payload) {
+      db.collection("users")
+        .doc(this.user.uid)
+        .collection("meetings")
+        .add({
+          name: payload,
+          createdAt: Firebase.firestore.FieldValue.serverTimestamp()
+        });
     }
   },
   mounted() {
     Firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        this.user = user.displayName;
+        this.user = user;
       }
     });
   },
