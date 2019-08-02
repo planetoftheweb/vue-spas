@@ -7,6 +7,7 @@
     <router-view
       class="container"
       :user="user"
+      :meetings="meetings"
       @logout="logout"
       @addMeeting="addMeeting"
     />
