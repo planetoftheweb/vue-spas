@@ -10,7 +10,10 @@
             <div class="card-body">
               <h3 class="font-weight-light mb-3">Check in</h3>
               <section class="form-group">
-                <div class="col-12 alert alert-danger px-3">
+                <div
+                  class="col-12 alert alert-danger px-3"
+                  v-if="error"
+                >
                   error
                 </div>
                 <label
@@ -59,9 +62,15 @@ export default {
       eMail: null
     };
   },
+  props: ["error"],
   methods: {
     handleCheckIn: function() {
-      console.log(this.$route.params.meetingID);
+      this.$emit("checkIn", {
+        userID: this.$route.params.userID,
+        meetingID: this.$route.params.meetingID,
+        displayName: this.displayName,
+        eMail: this.eMail
+      });
       this.displayName = null;
       this.eMail = null;
     }
