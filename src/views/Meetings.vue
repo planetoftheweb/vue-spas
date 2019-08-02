@@ -54,6 +54,7 @@
                 <button
                   class="btn btn-sm btn-outline-secondary"
                   title="Delete Meeting"
+                  @click="$emit('deleteMeeting', item.id)"
                 >
                   <font-awesome-icon icon="trash"></font-awesome-icon>
                 </button>
