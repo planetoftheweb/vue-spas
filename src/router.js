@@ -5,6 +5,7 @@ import Login from "./views/Login.vue";
 import Meetings from "./views/Meetings.vue";
 import Register from "./views/Register.vue";
 import CheckIn from "./views/CheckIn.vue";
+import Attendees from "./views/Attendees";
 
 Vue.use(Router);
 
@@ -24,6 +25,11 @@ export default new Router({
       path: "/meetings",
       name: "meetings",
       component: Meetings
+    },
+    {
+      path: "/attendees/:userID/:meetingID",
+      name: "Attendees",
+      component: Attendees
     },
     {
       path: "/register",
