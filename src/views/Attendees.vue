@@ -19,14 +19,16 @@
                 <font-awesome-icon icon="star"></font-awesome-icon>
               </button>
               <a
+                :href="'mailto:' + item.eMail"
                 class="btn btn-sm btn-outline-secondary"
-                title="Send user an email"
+                :title="item.eMail"
               >
                 <font-awesome-icon icon="envelope"></font-awesome-icon>
               </a>
               <button
                 class="btn btn-sm btn-outline-secondary"
-                title="Delete Attendee"
+                tite="Delete Attendee"
+                @click="deleteAttendee(item.id)"
               >
                 <font-awesome-icon icon="trash"></font-awesome-icon>
               </button>
@@ -54,6 +56,19 @@ export default {
   },
   components: {
     FontAwesomeIcon
+  },
+  methods: {
+    deleteAttendee: function(attendeeID) {
+      if (this.user && this.user.uid == this.userID) {
+        db.collection("users")
+          .doc(this.user.uid)
+          .collection("meetings")
+          .doc(this.meetingID)
+          .collection("attendees")
+          .doc(attendeeID)
+          .delete();
+      }
+    }
   },
   props: ["user"],
   mounted() {
