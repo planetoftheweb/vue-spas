@@ -2,7 +2,10 @@
   <div class="container mt-4">
 
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div
+        class="col-md-8"
+        v-if="user !== null && user.uid == userID"
+      >
         <h1 class="font-weight-light text-center">Attendees</h1>
 
         <div class="card bg-light mb-4">
@@ -13,17 +16,20 @@
                 placeholder="Search Attendees"
                 class="form-control"
                 v-model="searchQuery"
+                ref="searchQuery"
               />
               <div class="input-group-append">
                 <button
                   class="btn btn-sm btn-outline-info"
                   title="Pick a random attendee"
+                  @click="chooseRandom"
                 >
                   <font-awesome-icon icon="random"></font-awesome-icon>
                 </button>
                 <button
                   class="btn btn-sm btn-outline-info"
                   title="Reset Search"
+                  @click="resetQuery"
                 >
                   <font-awesome-icon icon="undo"></font-awesome-icon>
                 </button>
@@ -87,6 +93,7 @@ export default {
   data: function() {
     return {
       attendees: [],
+      displayAttendees: [],
       searchQuery: "",
       userID: this.$route.params.userID,
       meetingID: this.$route.params.meetingID
@@ -100,10 +107,19 @@ export default {
       const dataFilter = item =>
         item.displayName.toLowerCase().match(this.searchQuery.toLowerCase()) &&
         true;
-      return this.attendees.filter(dataFilter);
+      return this.displayAttendees.filter(dataFilter);
     }
   },
   methods: {
+    chooseRandom: function() {
+      const randomAttendee = Math.floor(Math.random() * this.attendees.length);
+      this.displayAttendees = [this.attendees[randomAttendee]];
+    },
+    resetQuery() {
+      this.displayAttendees = this.attendees;
+      this.searchQuery = "";
+      this.$refs.searchQuery.focus();
+    },
     toggleStar: function(attendeeID) {
       if (this.user && this.user.uid == this.userID) {
         const ref = db
@@ -158,6 +174,7 @@ export default {
           });
         });
         this.attendees = snapData;
+        this.displayAttendees = this.attendees;
       });
   }
 };

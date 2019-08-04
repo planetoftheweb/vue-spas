@@ -74,7 +74,11 @@ export default {
                 eMail: payload.eMail,
                 createdAt: Firebase.firestore.FieldValue.serverTimestamp()
               })
-              .then(() => this.$router.push("/"));
+              .then(() =>
+                this.$router.push(
+                  "/attendees/" + payload.userID + "/" + payload.meetingID
+                )
+              );
           } else {
             this.error = "Sorry, no such meeting";
           }
