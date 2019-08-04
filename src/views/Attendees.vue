@@ -86,7 +86,6 @@
 </template>
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import Firebase from "firebase";
 import db from "../db.js";
 
 export default {
