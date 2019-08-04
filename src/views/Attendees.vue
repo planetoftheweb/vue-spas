@@ -25,12 +25,14 @@
               <a
                 class="btn btn-sm btn-outline-secondary"
                 title="Send user an email"
+                :href="'mailto:' + item.eMail"
               >
                 <font-awesome-icon icon="envelope"></font-awesome-icon>
               </a>
               <button
                 class="btn btn-sm btn-outline-secondary"
                 title="Delete Attendee"
+                @click="deleteAttendee(item.id)"
               >
                 <font-awesome-icon icon="trash"></font-awesome-icon>
               </button>
@@ -86,27 +88,13 @@ export default {
     },
     deleteAttendee: function(attendeeID) {
       if (this.user && this.user.uid == this.userID) {
-        const ref = db
-          .collection("users")
+        db.collection("users")
           .doc(this.user.uid)
           .collection("meetings")
           .doc(this.meetingID)
           .collection("attendees")
-          .doc(attendeeID);
-
-        ref.get().then(doc => {
-          const star = doc.data().star;
-
-          if (star) {
-            ref.update({
-              star: !star
-            });
-          } else {
-            ref.update({
-              star: true
-            });
-          }
-        });
+          .doc(attendeeID)
+          .delete();
       }
     }
   },
