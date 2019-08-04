@@ -13,6 +13,7 @@
       @addMeeting="addMeeting"
       @deleteMeeting="deleteMeeting"
       @checkIn="checkIn"
+      @getData="getData"
     />
   </div>
 </template>
@@ -79,34 +80,38 @@ export default {
             this.error = "Sorry, no such meeting";
           }
         });
+    },
+    getData: function() {
+      Firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          this.user = user;
+
+          db.collection("users")
+            .doc(this.user.uid)
+            .collection("meetings")
+            .onSnapshot(snapshot => {
+              const snapData = [];
+              snapshot.forEach(doc => {
+                snapData.push({
+                  id: doc.id,
+                  name: doc.data().name,
+                  star: doc.star
+                });
+              });
+              this.meetings = snapData.sort((a, b) => {
+                if (a.name.toLowerCase() < b.name.toLowerCase()) {
+                  return -1;
+                } else {
+                  return 1;
+                }
+              });
+            });
+        }
+      });
     }
   },
   mounted() {
-    Firebase.auth().onAuthStateChanged(user => {
-      if (user) {
-        this.user = user;
-
-        db.collection("users")
-          .doc(this.user.uid)
-          .collection("meetings")
-          .onSnapshot(snapshot => {
-            const snapData = [];
-            snapshot.forEach(doc => {
-              snapData.push({
-                id: doc.id,
-                name: doc.data().name
-              });
-            });
-            this.meetings = snapData.sort((a, b) => {
-              if (a.name.toLowerCase() < b.name.toLowerCase()) {
-                return -1;
-              } else {
-                return 1;
-              }
-            });
-          });
-      }
-    });
+    this.getData();
   },
   components: {
     Navigation

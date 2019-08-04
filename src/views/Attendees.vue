@@ -1,9 +1,48 @@
 <template>
   <div class="container mt-4">
+    <div
+      class="row justify-content-center"
+      v-if="user !== null && user.uid == userID"
+    >
+      <div class="col-md-8">
+        <h1 class="font-weight-light text-center">Attendees</h1>
+
+        <div class="card bg-light mb-4">
+          <div class="card-body text-center">
+            <div class="input-group input-group-lg">
+              <input
+                type="text"
+                placeholder="Search Attendees"
+                class="form-control"
+                v-model="searchQuery"
+                ref="searchQuery"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-sm btn-outline-info"
+                  title="Pick a random attendee"
+                  @click="chooseRandom"
+                >
+                  <font-awesome-icon icon="random"></font-awesome-icon>
+                </button>
+                <button
+                  class="btn btn-sm btn-outline-info"
+                  title="Reset Search"
+                  @click="resetQuery"
+                >
+                  <font-awesome-icon icon="undo"></font-awesome-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row justify-content-center">
       <div
         class="col-8 col-sm-6 col-md-4 col-lg-3 mb-2 p-0 px-1"
-        v-for="item in attendees"
+        v-for="item in filteredAttendees"
         :key="item.id"
       >
         <div class="card">
@@ -25,12 +64,14 @@
               <a
                 class="btn btn-sm btn-outline-secondary"
                 title="Send user an email"
+                :href="'mailto:' + item.eMail"
               >
                 <font-awesome-icon icon="envelope"></font-awesome-icon>
               </a>
               <button
                 class="btn btn-sm btn-outline-secondary"
                 title="Delete Attendee"
+                @click="deleteAttendee(item.id)"
               >
                 <font-awesome-icon icon="trash"></font-awesome-icon>
               </button>
@@ -45,6 +86,7 @@
 </template>
 <script>
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import Firebase from "firebase";
 import db from "../db.js";
 
 export default {
@@ -52,6 +94,8 @@ export default {
   data: function() {
     return {
       attendees: [],
+      displayAttendees: [],
+      searchQuery: "",
       userID: this.$route.params.userID,
       meetingID: this.$route.params.meetingID
     };
@@ -59,7 +103,29 @@ export default {
   components: {
     FontAwesomeIcon
   },
+  computed: {
+    filteredAttendees: function() {
+      if (this.searchQuery !== null) {
+        const dataFilter = item =>
+          item.displayName
+            .toLowerCase()
+            .match(this.searchQuery.toLowerCase()) && true;
+
+        return this.displayAttendees.filter(dataFilter);
+      }
+    }
+  },
   methods: {
+    chooseRandom() {
+      const randomAttendee = Math.floor(Math.random() * this.attendees.length);
+      this.resetQuery();
+      this.displayAttendees = [this.attendees[randomAttendee]];
+    },
+
+    resetQuery() {
+      (this.displayAttendees = this.attendees), (this.$refs.searchQuery = "");
+      this.searchQuery = "";
+    },
     toggleStar: function(attendeeID) {
       if (this.user && this.user.uid == this.userID) {
         const ref = db
@@ -86,27 +152,13 @@ export default {
     },
     deleteAttendee: function(attendeeID) {
       if (this.user && this.user.uid == this.userID) {
-        const ref = db
-          .collection("users")
+        db.collection("users")
           .doc(this.user.uid)
           .collection("meetings")
           .doc(this.meetingID)
           .collection("attendees")
-          .doc(attendeeID);
-
-        ref.get().then(doc => {
-          const star = doc.data().star;
-
-          if (star) {
-            ref.update({
-              star: !star
-            });
-          } else {
-            ref.update({
-              star: true
-            });
-          }
-        });
+          .doc(attendeeID)
+          .delete();
       }
     }
   },
@@ -117,6 +169,7 @@ export default {
       .collection("meetings")
       .doc(this.meetingID)
       .collection("attendees")
+      .orderBy("createdAt", "desc")
       .onSnapshot(snapshot => {
         const snapData = [];
         snapshot.forEach(doc => {
@@ -128,6 +181,7 @@ export default {
           });
         });
         this.attendees = snapData;
+        this.displayAttendees = this.attendees;
       });
   }
 };
