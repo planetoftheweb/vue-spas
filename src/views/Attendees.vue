@@ -72,6 +72,30 @@ export default {
 
         ref.get().then(doc => {
           const star = doc.data().star;
+          if (star) {
+            ref.update({
+              star: !star
+            });
+          } else {
+            ref.update({
+              star: true
+            });
+          }
+        });
+      }
+    },
+    deleteAttendee: function(attendeeID) {
+      if (this.user && this.user.uid == this.userID) {
+        const ref = db
+          .collection("users")
+          .doc(this.user.uid)
+          .collection("meetings")
+          .doc(this.meetingID)
+          .collection("attendees")
+          .doc(attendeeID);
+
+        ref.get().then(doc => {
+          const star = doc.data().star;
 
           if (star) {
             ref.update({
