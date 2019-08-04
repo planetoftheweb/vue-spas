@@ -21,14 +21,12 @@
                 <button
                   class="btn btn-sm btn-outline-info"
                   title="Pick a random attendee"
-                  @click="chooseRandom"
                 >
                   <font-awesome-icon icon="random"></font-awesome-icon>
                 </button>
                 <button
                   class="btn btn-sm btn-outline-info"
                   title="Reset Search"
-                  @click="resetQuery"
                 >
                   <font-awesome-icon icon="undo"></font-awesome-icon>
                 </button>
@@ -93,7 +91,6 @@ export default {
   data: function() {
     return {
       attendees: [],
-      displayAttendees: [],
       searchQuery: "",
       userID: this.$route.params.userID,
       meetingID: this.$route.params.meetingID
@@ -110,21 +107,11 @@ export default {
             .toLowerCase()
             .match(this.searchQuery.toLowerCase()) && true;
 
-        return this.displayAttendees.filter(dataFilter);
+        return this.attendees.filter(dataFilter);
       }
     }
   },
   methods: {
-    chooseRandom() {
-      const randomAttendee = Math.floor(Math.random() * this.attendees.length);
-      this.resetQuery();
-      this.displayAttendees = [this.attendees[randomAttendee]];
-    },
-
-    resetQuery() {
-      (this.displayAttendees = this.attendees), (this.$refs.searchQuery = "");
-      this.searchQuery = "";
-    },
     toggleStar: function(attendeeID) {
       if (this.user && this.user.uid == this.userID) {
         const ref = db
@@ -180,7 +167,6 @@ export default {
           });
         });
         this.attendees = snapData;
-        this.displayAttendees = this.attendees;
       });
   }
 };
